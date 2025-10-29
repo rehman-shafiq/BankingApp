@@ -1,20 +1,16 @@
 import { useState } from 'react'
 import './BankingApp.css'
-function BankingApp({ onSendMoneyClick, onCheckBalanceClick }) {
+function BankingApp({ onSendMoneyClick,onWithdrawClick }) {
 
     /* Hooks */
     const [text, setText] = useState("")
     const [input, setInput] = useState("")
-    const [show, setShow] = useState(true)
-    const [balance, setBalance] = useState(10000);
-
+    const [show, setShow] = useState(false)
+    const[balance,setBalance]=useState(10000)
+ 
 
 
     /* Custom Method */
-    const onCheckBalance = () => {
-        alert(`Your current balance is $${balance}`)
-    }
-
 
     const ShowButton = () => {
         if (input.length >= 13) {
@@ -50,7 +46,7 @@ function BankingApp({ onSendMoneyClick, onCheckBalanceClick }) {
         if (input.length < 13) {
             alert("Account Number Requried to 13 digits")
             setInput("")
-            text = "";
+            /*   text = ""; */
             return;
         }
         if (!input === "") {
@@ -121,7 +117,7 @@ function BankingApp({ onSendMoneyClick, onCheckBalanceClick }) {
                                 <span>Send</span>
                             </button>
 
-                            <button className="btn btn-success action-btn">
+                            <button className="btn btn-success action-btn" onClick={onWithdrawClick}>
                                 <i className="bi bi-arrow-down-left-circle"></i>
                                 <span>Withdraw</span>
                             </button>
@@ -131,7 +127,7 @@ function BankingApp({ onSendMoneyClick, onCheckBalanceClick }) {
                                 <span>Deposit</span>
                             </button>
 
-                            <button className="btn btn-info action-btn" onClick={onCheckBalance}>
+                            <button className="btn btn-info action-btn" >
                                 <i className="bi bi-wallet2"></i>
                                 <span>Balance</span>
                             </button>

@@ -1,49 +1,31 @@
-
-import { Button, Modal } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
-
-const SendMoney = ({ showComponentProp, onSend }) => {
-
+import { useEffect } from 'react';
+import { Button, Modal,  } from 'react-bootstrap';
+import { useState } from 'react';
+const WithdrawMoney = ({ withdrawprop, onWithdraw }) => {
+   
     const [show, setShow] = useState(false);
-    const handleclose = () => setShow(false)
     const [input, setInput] = useState("");
+    const handleclose = () => setShow(false)
+
 
     const handleChange = (e) => {
         setInput(e.target.value)
     }
-
-    useEffect(() => {
-        setShow(showComponentProp);
-    }, [showComponentProp]);
-
-
-
-    const previewNum = (num) => {
-        setInput((pre) => pre + num)
-    }
-    const handleClear = () => {
+     const previewNum=(num)=>{
+        setInput((pre)=>pre+num)
+     }
+     const handleClear=()=>{
         setInput("")
-    }
+     }
 
-    const handleSubmit = () => {
-        /* if (input === "") {
-            alert("Enter Amount First")
-            return;
-        } else if (input >= 50001) {
-            alert("You can not send more than 50000 at a time")
-            setInput("")
-            return;
-        }
+     useEffect(()=>{
+        setShow(withdrawprop);
+     },[withdrawprop])
 
-        else if (input !== "") {
-            alert(`You have successfully sent ${input} amount`)
-            setInput("")
-        } */
-    }
 
     return (
         <>
-            <Modal
+           <Modal
                 show={show}
                 onHide={handleclose}
                 backdrop="static"
@@ -52,7 +34,7 @@ const SendMoney = ({ showComponentProp, onSend }) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Send Money</Modal.Title>
+                    <Modal.Title>WithdrawMoney</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <div
@@ -71,8 +53,8 @@ const SendMoney = ({ showComponentProp, onSend }) => {
                             value={input}
                             onChange={handleChange}
                         />
-                        <button className="btn btn-primary" type="button" onClick={onSend}>
-                            Send
+                        <button className="btn btn-primary" type="button" onClick={onWithdraw} >
+                          Withdraw
                         </button>
                         <div className="text-center mb-1">
                             <div className="d-flex flex-wrap justify-content-center gap-4 mb-4"></div>
@@ -99,6 +81,8 @@ const SendMoney = ({ showComponentProp, onSend }) => {
                 </Modal.Footer>
             </Modal>
         </>
-    );
+      
+    )
 }
-export default SendMoney;
+
+export default WithdrawMoney;
