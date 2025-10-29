@@ -1,15 +1,12 @@
 import { useState } from 'react'
 import './BankingApp.css'
-function BankingApp({ onSendMoneyClick,onWithdrawClick }) {
+function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance }) {
 
     /* Hooks */
     const [text, setText] = useState("")
     const [input, setInput] = useState("")
     const [show, setShow] = useState(false)
-    const[balance,setBalance]=useState(10000)
- 
-
-
+    
     /* Custom Method */
 
     const ShowButton = () => {
@@ -19,7 +16,6 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick }) {
             setShow(false)
         }
     }
-
 
     const handleChange = (e) => {
         setInput(e.target.value)
@@ -46,7 +42,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick }) {
         if (input.length < 13) {
             alert("Account Number Requried to 13 digits")
             setInput("")
-            /*   text = ""; */
+            text = ""; 
             return;
         }
         if (!input === "") {
@@ -55,7 +51,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick }) {
 
     }
     const handleprop = `${input === text ? " " : " Account Number :"} ${text}`;
-    const handleprop2 = `${input === text ? " " : " Balance :"} ${text === "" ? "" : balance}`;
+    const handleprop2 = `${input === text ? " " : " Balance :"} ${text === "" ? "" :onbalance }`;
 
 
 
@@ -127,7 +123,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick }) {
                                 <span>Deposit</span>
                             </button>
 
-                            <button className="btn btn-info action-btn" >
+                            <button className="btn btn-info action-btn" onClick={onCheckBalance} >
                                 <i className="bi bi-wallet2"></i>
                                 <span>Balance</span>
                             </button>

@@ -2,14 +2,16 @@
 import { Button, Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
-const SendMoney = ({ showComponentProp, onSend }) => {
+const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
 
     const [show, setShow] = useState(false);
     const handleclose = () => setShow(false)
     const [input, setInput] = useState("");
+    const [amount, setAmount] = useState("");
 
     const handleChange = (e) => {
         setInput(e.target.value)
+        setAmount(Number(e.target.value));
     }
 
     useEffect(() => {
@@ -17,28 +19,21 @@ const SendMoney = ({ showComponentProp, onSend }) => {
     }, [showComponentProp]);
 
 
-
     const previewNum = (num) => {
-        setInput((pre) => pre + num)
+        setInput((prev) => {
+            const newVal = prev + num;
+            setAmount(Number(newVal));
+            return newVal;
+        });
     }
+
     const handleClear = () => {
         setInput("")
     }
 
     const handleSubmit = () => {
-        /* if (input === "") {
-            alert("Enter Amount First")
-            return;
-        } else if (input >= 50001) {
-            alert("You can not send more than 50000 at a time")
-            setInput("")
-            return;
-        }
-
-        else if (input !== "") {
-            alert(`You have successfully sent ${input} amount`)
-            setInput("")
-        } */
+        onSend(amount)
+        setInput("")
     }
 
     return (
@@ -59,7 +54,7 @@ const SendMoney = ({ showComponentProp, onSend }) => {
                         className="position-absolute left-0 top-0 end-0 m-3 badge bg-white fs-6"
                         style={{ borderRadius: "10px" }}
                     >
-                        {/*  <p className="text-black mb-0">  </p> */}
+                        <p className="text-black mb-0"> Balance:{onbalance}  </p>
                     </div>
                     <h4 className="text-center mb-4">Bank Actions</h4>
                     <div className="input-group mb-4">
@@ -71,7 +66,7 @@ const SendMoney = ({ showComponentProp, onSend }) => {
                             value={input}
                             onChange={handleChange}
                         />
-                        <button className="btn btn-primary" type="button" onClick={onSend}>
+                        <button className="btn btn-primary" type="button" onClick={() => handleSubmit()}>
                             Send
                         </button>
                         <div className="text-center mb-1">

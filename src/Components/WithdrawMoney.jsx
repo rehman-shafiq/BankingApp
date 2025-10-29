@@ -1,31 +1,45 @@
 import { useEffect } from 'react';
-import { Button, Modal,  } from 'react-bootstrap';
+import { Button, Modal, } from 'react-bootstrap';
 import { useState } from 'react';
-const WithdrawMoney = ({ withdrawprop, onWithdraw }) => {
-   
+const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
+
     const [show, setShow] = useState(false);
     const [input, setInput] = useState("");
+    const [amount, setAmount] = useState("");
     const handleclose = () => setShow(false)
-
 
     const handleChange = (e) => {
         setInput(e.target.value)
-    }
-     const previewNum=(num)=>{
-        setInput((pre)=>pre+num)
-     }
-     const handleClear=()=>{
-        setInput("")
-     }
+        setAmount(Number(e.target.value));
 
-     useEffect(()=>{
+    }
+    /*    const previewNum = (num) => {
+           setInput((pre) => pre + num )
+       } */
+    const previewNum = (num) => {
+        setInput((prev) => {
+            const newVal = prev + num; 
+            setAmount(Number(newVal)); 
+            return newVal;
+        });
+    };
+    const handleClear = () => {
+        setInput("")
+    }
+    const handleSubmit = () => {
+        onWithdraw(amount)
+        setInput("")
+    }
+
+    useEffect(() => {
         setShow(withdrawprop);
-     },[withdrawprop])
+    }, [withdrawprop])
+
 
 
     return (
         <>
-           <Modal
+            <Modal
                 show={show}
                 onHide={handleclose}
                 backdrop="static"
@@ -41,7 +55,7 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw }) => {
                         className="position-absolute left-0 top-0 end-0 m-3 badge bg-white fs-6"
                         style={{ borderRadius: "10px" }}
                     >
-                        {/*  <p className="text-black mb-0">  </p> */}
+                        <p className="text-black mb-0"> Balance:{onbalance} </p>
                     </div>
                     <h4 className="text-center mb-4">Bank Actions</h4>
                     <div className="input-group mb-4">
@@ -53,17 +67,17 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw }) => {
                             value={input}
                             onChange={handleChange}
                         />
-                        <button className="btn btn-primary" type="button" onClick={onWithdraw} >
-                          Withdraw
+                        <button className="btn btn-primary" type="button" onClick={() => handleSubmit()} >
+                            Withdraw
                         </button>
                         <div className="text-center mb-1">
                             <div className="d-flex flex-wrap justify-content-center gap-4 mb-4"></div>
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0,].map((num) => (
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0,].map((num, amount) => (
                                 <button
                                     key={num}
                                     className="btn btn-outline-dark mb-2 "
                                     style={{ width: "100px", height: "60px", fontSize: "20px" }}
-                                    onClick={() => previewNum(num)}
+                                    onClick={() => previewNum(num, amount)}
                                 >
                                     {num}
                                 </button>
@@ -81,7 +95,7 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw }) => {
                 </Modal.Footer>
             </Modal>
         </>
-      
+
     )
 }
 
