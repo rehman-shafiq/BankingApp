@@ -1,13 +1,21 @@
 import { useState } from 'react'
 import './BankingApp.css'
-function BankingApp({ onSendMoneyClick }) {
+function BankingApp({ onSendMoneyClick, onCheckBalanceClick }) {
 
     /* Hooks */
     const [text, setText] = useState("")
     const [input, setInput] = useState("")
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(true)
+    const [balance, setBalance] = useState(10000);
+
+
 
     /* Custom Method */
+    const onCheckBalance = () => {
+        alert(`Your current balance is $${balance}`)
+    }
+
+
     const ShowButton = () => {
         if (input.length >= 13) {
             setShow(true)
@@ -16,6 +24,7 @@ function BankingApp({ onSendMoneyClick }) {
         }
     }
 
+
     const handleChange = (e) => {
         setInput(e.target.value)
     }
@@ -23,6 +32,7 @@ function BankingApp({ onSendMoneyClick }) {
         ErrorValidation();
         setText(input);
         ShowButton();
+        setInput("");
     }
     const handleNumberClick = (num) => {
         setInput((pre) => pre + num)
@@ -40,12 +50,19 @@ function BankingApp({ onSendMoneyClick }) {
         if (input.length < 13) {
             alert("Account Number Requried to 13 digits")
             setInput("")
+            text = "";
             return;
         }
         if (!input === "") {
             setInput("")
         }
+
     }
+    const handleprop = `${input === text ? " " : " Account Number :"} ${text}`;
+    const handleprop2 = `${input === text ? " " : " Balance :"} ${text === "" ? "" : balance}`;
+
+
+
 
 
     return (
@@ -55,7 +72,8 @@ function BankingApp({ onSendMoneyClick }) {
                     className="position-absolute left-0 top-0 end-0 m-3 badge bg-white fs-6"
                     style={{ borderRadius: "10px" }}
                 >
-                    <p className="text-black mb-0">  Acc Number: {text}</p>
+                    <p className="text-black mb-0" > {handleprop} </p>
+                    <p className="text-black mb-0"> {handleprop2}  </p>
                 </div>
                 <h4 className="text-center mb-4">Bank Actions</h4>
                 <div className="input-group mb-4">
@@ -113,7 +131,7 @@ function BankingApp({ onSendMoneyClick }) {
                                 <span>Deposit</span>
                             </button>
 
-                            <button className="btn btn-info action-btn">
+                            <button className="btn btn-info action-btn" onClick={onCheckBalance}>
                                 <i className="bi bi-wallet2"></i>
                                 <span>Balance</span>
                             </button>
