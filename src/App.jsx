@@ -1,14 +1,16 @@
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import BankingApp from './Components/BankingApp'
 import SendMoney from './Components/SendMoney';
 import WithdrawMoney from './Components/WithdrawMoney';
+import Deposit from './Components/Deposit';
 
 
 
 function App() {
   const [showSendMoneyModal, setShowSendMoneyModal] = useState(false);
   const [showWithdrawModal, setShowWithdrawModel] = useState(false);
+  const [showDepositModal, setShowDepositModal] = useState(false);
   const [currentAmount, setCurrentAmount] = useState(10000)
 
   const showSendMoneyComponent = () => {
@@ -42,16 +44,26 @@ function App() {
       alert('Insufficient balance!');
     }
   };
+  const handledepositComponent = () => {
+    if (!showDepositModal) {
+      setShowDepositModal(true);
+      console.log("Deposit Modal Opened");
+    } else {
+      setShowDepositModal(false);
+    }
+  }
 
   useEffect(() => {
     setShowSendMoneyModal(showSendMoneyModal);
   }, [showSendMoneyModal]);
 
-
   useEffect(() => {
     setShowWithdrawModel(showWithdrawModal);
   }, [showWithdrawModal]);
 
+  useEffect(() => {
+    setShowDepositModal(showDepositModal);
+  }, [showDepositModal]);
 
   return (
     <>
@@ -60,8 +72,8 @@ function App() {
         onWithdrawClick={() => showWithdrawComponent()}
         onCheckBalance={() => alert(`Your current balance is ${currentAmount}`)}
         onbalance={currentAmount}
+        onDepositBalance={() => handledepositComponent()}
       />
-
       <SendMoney
         showComponentProp={showSendMoneyModal}
         onSend={(amount) => handleSend(amount)}
@@ -71,6 +83,11 @@ function App() {
         withdrawprop={showWithdrawModal}
         onWithdraw={(amount) => handleWithdraw(amount)}
         onbalance={currentAmount}
+      />
+      <Deposit
+        onDeposit={(amount) => setCurrentAmount(currentAmount + amount)}
+        onbalance={currentAmount}
+        showdepositprop={showDepositModal}
       />
     </>
   )

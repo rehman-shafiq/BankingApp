@@ -13,9 +13,6 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
         setAmount(Number(e.target.value));
 
     }
-    /*    const previewNum = (num) => {
-           setInput((pre) => pre + num )
-       } */
     const previewNum = (num) => {
         setInput((prev) => {
             const newVal = prev + num; 
@@ -28,14 +25,13 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
     }
     const handleSubmit = () => {
         onWithdraw(amount)
+        setShow(false);
         setInput("")
     }
 
     useEffect(() => {
         setShow(withdrawprop);
     }, [withdrawprop])
-
-
 
     return (
         <>
@@ -44,7 +40,7 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
                 onHide={handleclose}
                 backdrop="static"
                 keyboard={false}
-                size='md'
+                size='lg'
                 centered
             >
                 <Modal.Header closeButton>
@@ -95,7 +91,6 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
                 </Modal.Footer>
             </Modal>
         </>
-
     )
 }
 

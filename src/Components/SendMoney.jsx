@@ -5,20 +5,18 @@ import { useEffect, useState } from 'react';
 const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
 
     const [show, setShow] = useState(false);
-    const handleclose = () => setShow(false)
     const [input, setInput] = useState("");
     const [amount, setAmount] = useState("");
+    const [showInput, setShowInput] = useState(true);
+    const [showInput2, setShowInput2] = useState(false);
+    const [text, setText] = useState("")
 
+    const handleclose = () => setShow(false)
     const handleChange = (e) => {
         setInput(e.target.value)
         setAmount(Number(e.target.value));
+
     }
-
-    useEffect(() => {
-        setShow(showComponentProp);
-    }, [showComponentProp]);
-
-
     const previewNum = (num) => {
         setInput((prev) => {
             const newVal = prev + num;
@@ -28,13 +26,49 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
     }
 
     const handleClear = () => {
-        setInput("")
+        setInput("");
+    }
+    const handleSubmit = () => {
+        onSend(amount);
+        setShow(false);
+        setInput("");
+        setShowInput(true);
+        setShowInput2(false);
+        setText("");
+
+
+        if (amount <= onbalance) {
+            alert(`Sending ${input} to account ${text}`);
+
+        }
+
+    }
+    const AccountNumberValidate = () => {
+        /*       autoclose(); */
+        if (input === "") {
+            alert("First Enter Account Number")
+            return;
+        }
+        if (input.length < 13) {
+            alert("Account Number Requried to 13 digits")
+            setInput("");
+            return;
+        }
+        if (!input === "") {
+            setInput("");
+            return;
+        }
+        setText(input);
+        setInput("");
+        setShowInput(false);
+        setShowInput2(true);
+
     }
 
-    const handleSubmit = () => {
-        onSend(amount)
-        setInput("")
-    }
+    useEffect(() => {
+        setShow(showComponentProp);
+    }, [showComponentProp]);
+
 
     return (
         <>
@@ -43,7 +77,7 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
                 onHide={handleclose}
                 backdrop="static"
                 keyboard={false}
-                size='md'
+                size='lg'
                 centered
             >
                 <Modal.Header closeButton>
@@ -54,21 +88,37 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
                         className="position-absolute left-0 top-0 end-0 m-3 badge bg-white fs-6"
                         style={{ borderRadius: "10px" }}
                     >
+                        <p className="text-black mb-0"> AccNo: {text}  </p>
                         <p className="text-black mb-0"> Balance:{onbalance}  </p>
                     </div>
                     <h4 className="text-center mb-4">Bank Actions</h4>
+                    <div className="input-group mb-2">
+                        {showInput && <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Enter Account Number To Send Money"
+                            required
+                            value={input}
+                            onChange={handleChange}
+                        />}{showInput &&
+                            <button className="btn btn-primary" type="button" onClick={() => AccountNumberValidate()}>
+                                Enter
+                            </button>
+                        }
+                    </div>
                     <div className="input-group mb-4">
-                        <input
+                        {showInput2 && <input
                             type="number"
                             className="form-control"
                             placeholder="Enter Amount"
                             required
                             value={input}
                             onChange={handleChange}
-                        />
-                        <button className="btn btn-primary" type="button" onClick={() => handleSubmit()}>
-                            Send
-                        </button>
+                        />}{showInput2 &&
+                            <button className="btn btn-primary" type="button" onClick={() => handleSubmit()}>
+                                Send
+                            </button>
+                        }
                         <div className="text-center mb-1">
                             <div className="d-flex flex-wrap justify-content-center gap-4 mb-4"></div>
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0,].map((num) => (
