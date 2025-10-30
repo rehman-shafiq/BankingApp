@@ -15,8 +15,8 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
     }
     const previewNum = (num) => {
         setInput((prev) => {
-            const newVal = prev + num; 
-            setAmount(Number(newVal)); 
+            const newVal = prev + num;
+            setAmount(Number(newVal));
             return newVal;
         });
     };
@@ -44,7 +44,7 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>WithdrawMoney</Modal.Title>
+                    <Modal.Title className="text-center w-100">Withdraw Money</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <div
@@ -53,8 +53,8 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
                     >
                         <p className="text-black mb-0"> Balance:{onbalance} </p>
                     </div>
-                    <h4 className="text-center mb-4">Bank Actions</h4>
-                    <div className="input-group mb-4">
+                    <h4 className="text-center mb-4"></h4>
+                    <div className="input-group mt-4">
                         <input
                             type="number"
                             className="form-control"
@@ -63,7 +63,7 @@ const WithdrawMoney = ({ withdrawprop, onWithdraw, onbalance }) => {
                             value={input}
                             onChange={handleChange}
                         />
-                        <button className="btn btn-primary" type="button" onClick={() => handleSubmit()} >
+                        <button className="btn btn-primary w-100 mt-2" type="button" onClick={() => handleSubmit()} >
                             Withdraw
                         </button>
                         <div className="text-center mb-1">

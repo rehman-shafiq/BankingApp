@@ -4,6 +4,8 @@ import BankingApp from './Components/BankingApp'
 import SendMoney from './Components/SendMoney';
 import WithdrawMoney from './Components/WithdrawMoney';
 import Deposit from './Components/Deposit';
+import bankImage from './Images/bankingImg.jpg'
+import './App.css'
 
 
 
@@ -67,28 +69,36 @@ function App() {
 
   return (
     <>
-      <BankingApp
-        onSendMoneyClick={() => showSendMoneyComponent()}
-        onWithdrawClick={() => showWithdrawComponent()}
-        onCheckBalance={() => alert(`Your current balance is ${currentAmount}`)}
-        onbalance={currentAmount}
-        onDepositBalance={() => handledepositComponent()}
-      />
-      <SendMoney
-        showComponentProp={showSendMoneyModal}
-        onSend={(amount) => handleSend(amount)}
-        onbalance={currentAmount}
-      />
-      <WithdrawMoney
-        withdrawprop={showWithdrawModal}
-        onWithdraw={(amount) => handleWithdraw(amount)}
-        onbalance={currentAmount}
-      />
-      <Deposit
-        onDeposit={(amount) => setCurrentAmount(currentAmount + amount)}
-        onbalance={currentAmount}
-        showdepositprop={showDepositModal}
-      />
+      <div className="bg-container position-relative text-white">
+        <img src={bankImage} alt="Bank" className="bg-img" />
+        <div className="overlay-content d-flex justify-content-center align-items-center">
+          <BankingApp
+            onSendMoneyClick={() => showSendMoneyComponent()}
+            onWithdrawClick={() => showWithdrawComponent()}
+            onCheckBalance={() => alert(`Your current balance is ${currentAmount}`)}
+            onbalance={currentAmount}
+            onDepositBalance={() => handledepositComponent()}
+          />
+          <SendMoney
+            showComponentProp={showSendMoneyModal}
+            onSend={(amount) => handleSend(amount)}
+            onbalance={currentAmount}
+          />
+          <WithdrawMoney
+            withdrawprop={showWithdrawModal}
+            onWithdraw={(amount) => handleWithdraw(amount)}
+            onbalance={currentAmount}
+          />
+          <Deposit
+            onDeposit={(amount) => setCurrentAmount(currentAmount + amount)}
+            onbalance={currentAmount}
+            showdepositprop={showDepositModal}
+          />
+
+        </div>
+      </div>
+
+
     </>
   )
 }

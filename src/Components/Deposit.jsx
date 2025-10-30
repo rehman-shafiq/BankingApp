@@ -2,7 +2,7 @@ import { use } from 'react';
 import { useState, useEffect } from 'react'
 import { Button, Modal, } from 'react-bootstrap';
 
-const Deposit = ({onDeposit,onbalance,showdepositprop}) => {
+const Deposit = ({ onDeposit, onbalance, showdepositprop }) => {
     const [show, setShow] = useState(false);
     const [input, setInput] = useState("");
     const [amount, setAmount] = useState("");
@@ -28,9 +28,9 @@ const Deposit = ({onDeposit,onbalance,showdepositprop}) => {
         setShow(false);
         setInput("")
     }
-   useEffect(() => {
-    setShow(showdepositprop);
-   }, [showdepositprop])
+    useEffect(() => {
+        setShow(showdepositprop);
+    }, [showdepositprop])
     return (
         <>
             <Modal
@@ -42,7 +42,7 @@ const Deposit = ({onDeposit,onbalance,showdepositprop}) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Deposit Money</Modal.Title>
+                    <Modal.Title className="text-center w-100">Deposit Money</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <div
@@ -51,8 +51,8 @@ const Deposit = ({onDeposit,onbalance,showdepositprop}) => {
                     >
                         <p className="text-black mb-0"> Balance:{onbalance} </p>
                     </div>
-                    <h4 className="text-center mb-4">Bank Actions</h4>
-                    <div className="input-group mb-4">
+                    <h4 className="text-center mb-4"></h4>
+                    <div className="input-group mt-4">
                         <input
                             type="number"
                             className="form-control"
@@ -61,8 +61,8 @@ const Deposit = ({onDeposit,onbalance,showdepositprop}) => {
                             value={input}
                             onChange={handleChange}
                         />
-                        <button className="btn btn-primary" type="button" onClick={()=>handleSubmit()} >
-                           Deposit
+                        <button className="btn btn-primary w-100 mt-2" type="button" onClick={() => handleSubmit()} >
+                            Deposit
                         </button>
                         <div className="text-center mb-1">
                             <div className="d-flex flex-wrap justify-content-center gap-4 mb-4"></div>
