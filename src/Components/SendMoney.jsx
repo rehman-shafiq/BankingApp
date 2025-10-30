@@ -81,7 +81,7 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Send Money</Modal.Title>
+                    <Modal.Title className="text-center w-100">Send Money</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <div
@@ -91,8 +91,8 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
                         <p className="text-black mb-0"> AccNo: {text}  </p>
                         <p className="text-black mb-0"> Balance:{onbalance}  </p>
                     </div>
-                    <h4 className="text-center mb-4">Bank Actions</h4>
-                    <div className="input-group mb-2">
+                    <h4 className="text-center mb-4"></h4> 
+                    <div className="input-group mt-4">
                         {showInput && <input
                             type="number"
                             className="form-control"
@@ -101,12 +101,12 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
                             value={input}
                             onChange={handleChange}
                         />}{showInput &&
-                            <button className="btn btn-primary" type="button" onClick={() => AccountNumberValidate()}>
+                            <button className="btn btn-primary w-100 mt-2" type="button" onClick={() => AccountNumberValidate()}>
                                 Enter
                             </button>
                         }
                     </div>
-                    <div className="input-group mb-4">
+                    <div className="input-group mt-4">
                         {showInput2 && <input
                             type="number"
                             className="form-control"
@@ -115,16 +115,16 @@ const SendMoney = ({ showComponentProp, onSend, onbalance }) => {
                             value={input}
                             onChange={handleChange}
                         />}{showInput2 &&
-                            <button className="btn btn-primary" type="button" onClick={() => handleSubmit()}>
+                            <button className="btn btn-primary w-100 mt-2" type="button" onClick={() => handleSubmit()}>
                                 Send
                             </button>
                         }
-                        <div className="text-center mb-1">
-                            <div className="d-flex flex-wrap justify-content-center gap-4 mb-4"></div>
+                        <div className="text-center  mb-1">
+                            <div className="d-flex flex-wrap justify-content-center mb-4"></div>
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0,].map((num) => (
                                 <button
                                     key={num}
-                                    className="btn btn-outline-dark mb-2 "
+                                    className="btn btn-outline-dark mb-2  "
                                     style={{ width: "100px", height: "60px", fontSize: "20px" }}
                                     onClick={() => previewNum(num)}
                                 >

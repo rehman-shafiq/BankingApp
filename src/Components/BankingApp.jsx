@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './BankingApp.css'
-function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,onDepositBalance }) {
+function BankingApp({ onSendMoneyClick, onWithdrawClick, onbalance, onCheckBalance, onDepositBalance }) {
 
     const [text, setText] = useState("")
     const [input, setInput] = useState("")
     const [show, setShow] = useState(false)
-    
+
     const ShowButton = () => {
         if (input.length >= 13) {
             setShow(true)
@@ -37,7 +37,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,
         if (input.length < 13) {
             alert("Account Number Requried to 13 digits")
             setInput("")
-            text = ""; 
+            text = "";
             return;
         }
         if (!input === "") {
@@ -45,7 +45,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,
         }
     }
     const handleprop = `${input === text ? " " : " Account Number :"} ${text}`;
-    const handleprop2 = `${input === text ? " " : " Balance :"} ${text === "" ? "" :onbalance }`;
+    const handleprop2 = `${input === text ? " " : " Balance :"} ${text === "" ? "" : onbalance}`;
 
     return (
         <>
@@ -57,7 +57,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,
                     <p className="text-black mb-0" > {handleprop} </p>
                     <p className="text-black mb-0"> {handleprop2}  </p>
                 </div>
-                <h4 className="text-center mb-4">Bank Actions</h4>
+                <h4 className="text-center mb-4 text-light" >Bank Actions</h4>
                 <div className="input-group mb-4">
                     <input
                         type="number"
@@ -76,7 +76,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num) => (
                             <button
                                 key={num}
-                                className="btn btn-outline-dark"
+                                className="btn btn-outline-light"
                                 style={{ width: "70px", height: "60px", fontSize: "20px" }}
                                 onClick={() => handleNumberClick(num)}
                             >
@@ -84,7 +84,7 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,
                             </button>
                         ))}
                         <button
-                            className="btn btn-outline-dark"
+                            className="btn btn-outline-light mb-2 "
                             style={{ width: "70px", height: "60px", fontSize: "20px" }}
                             onClick={() => handleClear()}
                         >
