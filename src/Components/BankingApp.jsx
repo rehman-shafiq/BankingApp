@@ -1,14 +1,11 @@
 import { useState } from 'react'
 import './BankingApp.css'
-function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance }) {
+function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance,onDepositBalance }) {
 
-    /* Hooks */
     const [text, setText] = useState("")
     const [input, setInput] = useState("")
     const [show, setShow] = useState(false)
     
-    /* Custom Method */
-
     const ShowButton = () => {
         if (input.length >= 13) {
             setShow(true)
@@ -28,11 +25,9 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance 
     }
     const handleNumberClick = (num) => {
         setInput((pre) => pre + num)
-
     }
     const handleClear = () => {
         setInput("")
-
     }
     const ErrorValidation = () => {
         if (input === "") {
@@ -48,14 +43,9 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance 
         if (!input === "") {
             setInput("")
         }
-
     }
     const handleprop = `${input === text ? " " : " Account Number :"} ${text}`;
     const handleprop2 = `${input === text ? " " : " Balance :"} ${text === "" ? "" :onbalance }`;
-
-
-
-
 
     return (
         <>
@@ -81,8 +71,6 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance 
                         Enter
                     </button>
                 </div>
-
-
                 <div className="text-center mb-4">
                     <div className="d-flex flex-wrap justify-content-center gap-2">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num) => (
@@ -107,34 +95,26 @@ function BankingApp({ onSendMoneyClick,onWithdrawClick,onbalance,onCheckBalance 
                 {(show &&
                     <div className="container text-center mt-4">
                         <div className="d-flex flex-wrap justify-content-center gap-5">
-
                             <button className="btn btn-primary action-btn" onClick={onSendMoneyClick}>
                                 <i className="bi bi-send"></i>
                                 <span>Send</span>
                             </button>
-
                             <button className="btn btn-success action-btn" onClick={onWithdrawClick}>
                                 <i className="bi bi-arrow-down-left-circle"></i>
                                 <span>Withdraw</span>
                             </button>
-
-                            <button className="btn btn-warning action-btn">
+                            <button className="btn btn-warning action-btn" onClick={onDepositBalance}>
                                 <i className="bi bi-arrow-up-right-circle"></i>
                                 <span>Deposit</span>
                             </button>
-
                             <button className="btn btn-info action-btn" onClick={onCheckBalance} >
                                 <i className="bi bi-wallet2"></i>
                                 <span>Balance</span>
                             </button>
-
                         </div>
                     </div>
                 )}
-
             </div>
-
-
         </>
     )
 }
